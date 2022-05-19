@@ -1,0 +1,31 @@
+Các server phần lớn đều sử dụng hệ điều hành Linux vì
+ Miễn phí, Ít tốn tài nguyên phần cứng, Bảo mật và cập nhật nhanh chóng
+
+Dễ dàng kết hợp với các công nghệ open source khác
+
+ứng dụng CLI mạnh mẽ
+Terminal này dễ dàng sử dụng hơn so với Command Prompt hay Powershell 
+phù hợp để lập trình, để phát triển các sản phẩm trên nền tảng open source
+
+
+
+miễn phí, dễ cài đặt
+
+Linux hỗ trợ hầu hết các ngôn ngữ lập trình
+
+Tính bảo mật cao
+Linux được cả cộng đồng xây dựng chung nên rất ít lỗi và nếu có lỗi thì cộng đồng Linux 
+cũng rất đông và sẽ giúp đỡ bạn thôi
+
+Khả năng tùy biến cực cao
+
+ko hỗ trợ tốt các ứng dụng văn phòng như MS world, Excel, Power Point,
+Mặc dù trên Linux có hai bộ ứng dụng là LibreOffice và OpenOffice để giải quyết vấn đề này,
+ nhưng nó vẫn không mượt mà và ổn định như MS Office có trên Windows được
+ Photoshop cũng không có bản hỗ trợ trên Linux
+
+CLI (Command Line Interface) chỉ cần gõ lệnh là hầu như làm được hết mọi thứ.
+Tiết kiệm được nhiều thời gian thao tác nếu thành thạo
+Có thể sẽ phải làm việc nhiều với các server Linux
+GUI – Graphical User Interface: Là giao diện sử dụng ở dạng đồ họa
+
