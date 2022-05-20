@@ -1,1 +1,1 @@
-web:npm run anh
+web: npm run anh
