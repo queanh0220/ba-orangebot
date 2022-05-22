@@ -8,5 +8,4 @@ export const verifyToken = (req, res, next) => {
   } catch (err) {
     return res.status(400).send("Invalid Token");
   }
-  console.log("verify", verify);
 }

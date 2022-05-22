@@ -12,7 +12,7 @@ const getDbInstance =  async () => {
         if(!client) {
             client = await MongoClient.connect(url);
         }
-        return client.db("orangebot");
+        return client.db("examble");
     } catch (error) {
         throw new Error("Can't connect database");
     }
