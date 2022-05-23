@@ -3,6 +3,8 @@ const userRouter = express.Router();
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 const { getDbInstance } = require("../database");
+const { verifyToken } = require("../middleware/verifyToken");
+const { request } = require("express");
 const ObjectId = require("mongodb").ObjectID;
 
 userRouter.post("/login", async (req, res) => {
@@ -14,7 +16,7 @@ userRouter.post("/login", async (req, res) => {
   if (data) {
     if (md5(req.body.password) === data.password) {
       const token = jwt.sign({ _id: data._id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: 60*60,
+        expiresIn: 2*60*60,
       });
       res.setHeader("Access-Control-Expose-Headers", "token")
       res.header("token", token).send("Login success");
@@ -27,24 +29,12 @@ userRouter.post("/login", async (req, res) => {
   res.status(400).json("user not found").end();
 });
 
-userRouter.get("/", async (req, res) => {
-  const token = req.headers.authorization;
-  if (!token) {
-    return res.status(401).send("Access Denied");
-  }
-  
-  let verify;
-  try {
-    verify = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  } catch (err) {
-    console.log("err",err.message)
-    return res.status(400).send("Invalid Token");
-  }
-  console.log("verify", verify);
+userRouter.get("/", verifyToken, async (req, res) => {
+
   try {
     (await getDbInstance())
       .collection("users")
-      .findOne({ _id: new ObjectId(verify._id) }, (err, result) => {
+      .findOne({ _id: new ObjectId(req.verify._id) }, (err, result) => {
         if (result) {
           res.status(200).json(result).end();
         } else {
@@ -58,7 +48,6 @@ userRouter.get("/", async (req, res) => {
 });
 
 userRouter.post("/", async (req, res) => {
-
   if (req.body.password.length < 5) {
     return res.status(400).json({ message: "password invalid" }).end();
   }
@@ -70,27 +59,15 @@ userRouter.post("/", async (req, res) => {
   return res.send(user.insertedId);
 });
 
-userRouter.put("/", async (req, res) => {
-  
-  const token = req.headers.authorization;
-  if (!token) return res.status(401).send("Access Denied");
-  let verify;
-  try {
-    verify = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  } catch (err) {
-    return res.status(400).send("Invalid Token");
-  }
-  console.log("verify", verify);
+userRouter.put("/",verifyToken, async (req, res) => { 
 
-  let { _id, ...info } = req.body;
-  let newData = req.body.password
-    ? { $set: { ...info, password: md5(req.body.password) } }
-    : { $set: { ...info } };
-  console.log(newData);
+  let newData = {$set: req.body};
+  console.log("newData",newData);
+
   try {
     (await getDbInstance())
       .collection("users")
-      .updateOne({ _id: new ObjectId(verify._id) }, newData, (err, result) => {
+      .updateOne({ _id: new ObjectId(req.verify._id) }, newData, (err, result) => {
         console.log("err", err);
         console.log(result);
         if (result.modifiedCount) {
@@ -101,9 +78,28 @@ userRouter.put("/", async (req, res) => {
       });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: "user not found!" }).end();
+    res.status(400).json("user not found!").end();
   }
 });
+
+userRouter.put("/password",verifyToken, async(req, res) => {
+ 
+  console.log("body", req.body);
+
+  const colection = await (await getDbInstance()).collection("users")
+  const user = await colection.findOne({ _id: new ObjectId(req.verify._id)})
+  if(user.password != md5(req.body.oldPassword)) {
+    res.status(400).json("wrong password!").end();  
+  }
+  else {
+    const newData = {$set: {password: md5(req.body.newPassword)}}
+    console.log(newData)
+    const result = await colection.updateOne({ _id: new ObjectId(req.verify._id) }, newData)
+    console.log(result);
+    res.status(200).end();
+  }
+
+})
 
 userRouter.delete("/:id", async (req, res) => {
   try {
