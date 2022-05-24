@@ -33,7 +33,7 @@ uploadRouter.post("/",upload.single("file"), async (req, res) => {
         .collection("uploads")
         .insertOne(file);
       const value = result.insertedId;
-      res.send(`http://localhost:4000/upload/${value}`);
+      res.send(process.env.URLSERVER+value);
 });
 
 uploadRouter.get("/:id", async (req, res) => {
