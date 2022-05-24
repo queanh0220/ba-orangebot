@@ -30,7 +30,7 @@ userRouter.post("/login", async (req, res) => {
 });
 
 userRouter.get("/", verifyToken, async (req, res) => {
-
+  console.log("get user")
   try {
     (await getDbInstance())
       .collection("users")

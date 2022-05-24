@@ -5,7 +5,8 @@ const userRouter = require("./routes/user");
 const uploadRouter = require("./routes/upload");
 const downloadRouter = require("./routes/download");
 const fileRouter = require("./routes/file");
-
+const chatboxRouter = require("./routes/chatbox");
+const postRouter = require("./routes/post");
 const port = process.env.PORT;
 const cors = require('cors')
 
@@ -19,7 +20,8 @@ const main = async () => {
   app.use("/upload", uploadRouter);
   app.use("/download", downloadRouter);
   app.use("/files", fileRouter);
-
+  app.use("/chatboxs", chatboxRouter);
+  app.use("/posts", postRouter);
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });
