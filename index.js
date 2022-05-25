@@ -3,7 +3,6 @@ require("dotenv").config();
 const { getDbInstance } = require("./database");
 const userRouter = require("./routes/user");
 const uploadRouter = require("./routes/upload");
-const downloadRouter = require("./routes/download");
 const fileRouter = require("./routes/file");
 const chatboxRouter = require("./routes/chatbox");
 const postRouter = require("./routes/post");
@@ -18,7 +17,6 @@ const main = async () => {
   app.use(express.json());
   app.use("/users", userRouter);
   app.use("/upload", uploadRouter);
-  app.use("/download", downloadRouter);
   app.use("/files", fileRouter);
   app.use("/chatboxs", chatboxRouter);
   app.use("/posts", postRouter);
