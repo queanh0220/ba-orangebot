@@ -20,6 +20,7 @@ const getFileUpload = async (req, res) => {
   let meta = await getFileUploadService(req.params.id);
   console.log(meta);
   const dir = `/uploads/${meta.filename}`;
+  console.log("get file",process.cwd() + dir);
   res.sendFile(process.cwd() + dir);
 };
 
