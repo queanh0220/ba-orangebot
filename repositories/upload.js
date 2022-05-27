@@ -7,7 +7,7 @@ const addFileUploadRepo = async (data) => {
 
 
 const getFileUploadRepo = async (id) => {
-  return (await getDbInstance()).collection("users").insertOne({_id: new ObjectId(id)});
+  return (await getDbInstance()).collection("uploads").insertOne({_id: new ObjectId(id)});
 };
 
 module.exports = {
