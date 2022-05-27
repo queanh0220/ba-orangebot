@@ -1,5 +1,5 @@
 const express = require("express");
-const { getScenarios, addScenario, updateScenario, deleteScenario } = require("../controller/scenario");
+const { getScenarios, addScenario, updateScenario, deleteScenarios } = require("../controller/scenario");
 const scenarioRouter = express.Router();
 const { getDbInstance } = require("../database");
 const { verifyToken } = require("../middleware/verifyToken");
@@ -11,7 +11,7 @@ scenarioRouter.post("/", verifyToken, addScenario);
 
 scenarioRouter.put("/:id", verifyToken, updateScenario);
 
-scenarioRouter.delete("/:id", deleteScenario);
+scenarioRouter.delete("/", deleteScenarios);
 
 
 module.exports = scenarioRouter;

@@ -8,7 +8,11 @@ const verifyToken = (req, res, next) => {
     req.verify = jwt.verify(token, process.env.JWT_SECRET_KEY);
     next()
   } catch (err) {
-    return res.status(400).send("Invalid Token");
+    if(err.name === 'TokenExpiredError')
+    {
+      return res.status(401).send("Token Expired");
+    }
+    return res.status(401).send("Invalid Token");
   }
 }
 

@@ -1,36 +1,35 @@
-const { getDbInstance } = require("../database");
-const ObjectId = require("mongodb").ObjectID;
+const { getScenarioAllService, addScenarioService, updateScenarioService, deleteScenarioService } = require("../services/scenario");
+const { getUserService } = require("../services/user");
 
 const getScenarios = async (req, res) => {
-    const idUser = req.verify._id;
-    const result = await (await getDbInstance()).collection("scenarios").find({}).toArray();
+    const result = await getScenarioAllService();
       console.log("get scen",result)
     res.status(200).json(result).end();
   }
 
   const addScenario = async (req, res) => {
-    console.log(req.body);
-    const result = await (await getDbInstance())
-      .collection("scenarios")
-      .insertOne(req.body);
-    return res.status(200).json(result).end(); 
+    try {
+      const user = await getUserService(req.verify._id);
+      console.log("user", user);
+      const result = await addScenarioService({...req.body, author: user.username});
+    res.status(200).json(result).end(); 
+    } catch (error) {
+      res.status(400).json(error.message).end();
+    }
   }
 
   const updateScenario =  async (req, res) => {
     console.log(req.body);
-    const newData = { $set: req.body };
-    const result = await (await getDbInstance())
-      .collection("scenarios")
-      .updateOne({ _id: new ObjectId(req.params.id) }, newData);
+    const result = await updateScenarioService(req.params.id, req.body)
     return res.status(200).json(result).end();
+
   }
 
-  const deleteScenario =  async (req, res) => {
-    const result = (await getDbInstance())
-      .collection("scenarios")
-      .deleteOne({ _id: new ObjectId(req.params.id) });
-  
+  const deleteScenarios =  async (req, res) => {
+    console.log("scen controler", req)
+    const result = await deleteScenarioService(req.body);
       res.status(200).json(result).end()
   }
 
-  module.exports = {getScenarios, addScenario, updateScenario, deleteScenario}
+
+  module.exports = {getScenarios, addScenario, updateScenario, deleteScenarios}

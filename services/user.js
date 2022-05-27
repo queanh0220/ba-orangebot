@@ -13,7 +13,7 @@ const loginService = async (data) => {
   if (user) {
     if (md5(data.password) === user.password) {
       const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: 2 * 60 * 60,
+        expiresIn: 2*60*60,
       });
       return token;
     } else {

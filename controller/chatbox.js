@@ -1,20 +1,18 @@
-const { getDbInstance } = require('../database');
+const { getChatboxService, addChatboxService, updateChatboxService } = require('../services/chatbox');
 
 const getChatBox = async (req, res) => {
     const idUser = req.verify._id;
-    const colection = await (await getDbInstance()).collection("chatboxs");
-    let data = await colection.findOne({idUser});
+    let data = await getChatboxService(idUser);
     console.log("checkbox get data",data);
     if(!data) {
-      data = await colection.insertOne({idUser});
+      data = await addChatboxService({idUser});
     }
     res.status(200).json(data).end()
   }
 
 const updateChatbox = async (req, res) => {
-    console.log(req.body);
-    const newData = {$set: req.body}
-    const result = await (await getDbInstance()).collection('chatboxs').updateOne({ idUser: req.verify._id }, newData);
+    console.log("update chatbox",req.body);
+    const result = await updateChatboxService( req.verify._id, req.body)
     return res.status(200).json(result).end()
   }
 
