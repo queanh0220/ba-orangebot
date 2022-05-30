@@ -1,9 +1,9 @@
-const { getDbInstance } = require("../database");
+
 const {
   addFileUploadService,
   getFileUploadService,
+  deleteFileUploadService,
 } = require("../services/upload");
-const ObjectId = require("mongodb").ObjectID;
 
 const postFileUpload = async (req, res) => {
   const file = req.file;
@@ -23,4 +23,11 @@ const getFileUpload = async (req, res) => {
   res.sendFile(process.cwd() + dir);
 };
 
-module.exports = { postFileUpload, getFileUpload };
+const deleteFileUpload = async (req, res) => {
+  console.log("paam", req.params.id)
+  let meta = await deleteFileUploadService(req.params.id);
+  console.log(meta);
+  res.send(meta);
+};
+
+module.exports = { postFileUpload, getFileUpload, deleteFileUpload };

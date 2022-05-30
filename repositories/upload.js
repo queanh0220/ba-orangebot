@@ -10,6 +10,10 @@ const getFileUploadRepo = async (id) => {
   return (await getDbInstance()).collection("uploads").findOne({_id: new ObjectId(id)});
 };
 
+const deleteFileUploadRepo = async (id) => {
+  return (await getDbInstance()).collection("uploads").deleteOne({_id: new ObjectId(id)});
+};
+
 module.exports = {
- addFileUploadRepo, getFileUploadRepo
+ addFileUploadRepo, getFileUploadRepo, deleteFileUploadRepo
 };

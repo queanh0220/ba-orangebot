@@ -7,6 +7,6 @@ fileRouter.get("/", getFiles);
 
 fileRouter.post("/", addFile);
 
-fileRouter.delete("/:id", deleteFile);
+fileRouter.delete("/", deleteFile);
 
 module.exports = fileRouter
