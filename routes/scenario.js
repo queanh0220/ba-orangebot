@@ -3,15 +3,16 @@ const { getScenarios, addScenario, updateScenario, deleteScenarios } = require("
 const scenarioRouter = express.Router();
 const { getDbInstance } = require("../database");
 const { verifyToken } = require("../middleware/verifyToken");
+const { wrapControler } = require("../utils/utils");
 const ObjectId = require("mongodb").ObjectID;
 
-scenarioRouter.get("/", verifyToken, getScenarios);
+scenarioRouter.get("/", verifyToken, wrapControler(getScenarios));
 
-scenarioRouter.post("/", verifyToken, addScenario);
+scenarioRouter.post("/", verifyToken, wrapControler(addScenario));
 
-scenarioRouter.put("/:id", verifyToken, updateScenario);
+scenarioRouter.put("/:id", verifyToken, wrapControler(updateScenario));
 
-scenarioRouter.delete("/", deleteScenarios);
+scenarioRouter.delete("/", verifyToken, wrapControler(deleteScenarios));
 
 
 module.exports = scenarioRouter;

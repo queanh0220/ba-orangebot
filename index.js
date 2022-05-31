@@ -8,11 +8,13 @@ const chatboxRouter = require("./routes/chatbox");
 const postRouter = require("./routes/post");
 const scenarioRouter = require("./routes/scenario");
 const port = process.env.PORT;
-const cors = require('cors')
+const cors = require('cors');
+const handleError = require("./middleware/handleError");
 
 const main = async () => {
   await getDbInstance();
   const app = express();
+  app.use(handleError)
   app.use(cors())
   app.use(express.json());
   app.use("/users", userRouter);

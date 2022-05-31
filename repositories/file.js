@@ -18,7 +18,6 @@ const deleteFileRepo = async (listId) => {
   return (await getDbInstance())
     .collection("files")
     .deleteMany(query);
-  
 };
 module.exports = {
   getFileAllRepo,
