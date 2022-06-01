@@ -16,7 +16,6 @@ function createAccountSchema(req, res, next) {
 function updateAccountSchema(req, res, next) {
     const schema = Joi.object({
         name: Joi.string().empty(''),
-        lastName: Joi.string().empty(''),
         email: Joi.string().email().empty(''),
         birthday: Joi.string().empty(),
         img: Joi.string().empty(),

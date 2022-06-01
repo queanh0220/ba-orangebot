@@ -1,20 +1,20 @@
 const express = require("express");
 const userRouter = express.Router();
 const { verifyToken } = require("../middleware/verifyToken");
-const { login, getUser, updateUser, updatePassword, addUser, deleteUser } = require("../controller/user");
+const userController = require("../controller/user");
 const { wrapControler } = require("../utils/utils");
 const { createAccountSchema, updateAccountSchema, updatePasswordSchema } = require("../middleware/validateSchema");
 
-userRouter.post("/login",wrapControler(login));
+userRouter.post("/login",wrapControler(userController.login));
 
-userRouter.get("/", verifyToken, wrapControler(getUser));
+userRouter.get("/", verifyToken, wrapControler(userController.getUser));
 
-userRouter.post("/",createAccountSchema, wrapControler(addUser));
+userRouter.post("/",createAccountSchema, wrapControler(userController.addUser));
 
-userRouter.put("/",[verifyToken, updateAccountSchema], wrapControler(updateUser));
+userRouter.put("/",[verifyToken, updateAccountSchema], wrapControler(userController.updateUser));
 
-userRouter.put("/password",[verifyToken, updatePasswordSchema], wrapControler(updatePassword))
+userRouter.put("/password",[verifyToken, updatePasswordSchema], wrapControler(userController.updatePassword))
 
-userRouter.delete("/:id", deleteUser);
+userRouter.delete("/:id", wrapControler(userController.deleteUser));
 
 module.exports = userRouter;

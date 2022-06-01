@@ -1,29 +1,29 @@
 const { getDbInstance } = require("../database");
 const ObjectId = require("mongodb").ObjectID;
 
-const getPostAllRepo = async () => {
+const getPostAll = async () => {
   return await (await getDbInstance()).collection("posts").find({}).toArray();
 };
 
-const addPostRepo = async (data) => {
+const addPost = async (data) => {
   return await (await getDbInstance()).collection("posts").insertOne(data);
 };
 
-const updatePostRepo = async (id, data) => {
+const updatePost = async (id, data) => {
   const newData = { $set: data };
   return await (await getDbInstance())
     .collection("posts")
     .updateOne({ _id: new ObjectId(id) }, newData);
 };
 
-const deletePostRepo = async (id) => {
+const deletePost = async (id) => {
   return (await getDbInstance())
     .collection("posts")
     .deleteOne({ _id: new ObjectId(id) });
 };
 module.exports = {
-  getPostAllRepo,
-  addPostRepo,
-  updatePostRepo,
-  deletePostRepo,
+  getPostAll,
+  addPost,
+  updatePost,
+  deletePost,
 };

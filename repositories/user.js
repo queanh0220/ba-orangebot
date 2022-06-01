@@ -10,16 +10,16 @@ const getUserByUserName = async (username) => {
     return (await getDbInstance()).collection("users").findOne({username});
 }
 
-const addUserRepo = async (data) => {
+const addUser = async (data) => {
   return (await getDbInstance()).collection("users").insertOne(data);
 };
 
-const updateUserRepo = async (id, data) => {
+const updateUser = async (id, data) => {
   const newData = { $set: data };
   return (await getDbInstance()).collection("users").updateOne({_id: new ObjectId(id)}, newData);
 };
 
-const deleteUserRepo = async (id) => {
+const deleteUser = async (id) => {
   return (await getDbInstance()).collection("users").deleteOne({_id: new ObjectId(id)});
 };
-module.exports = { getUserById, getUserByUserName, addUserRepo, updateUserRepo, deleteUserRepo };
+module.exports = { getUserById, getUserByUserName, addUser, updateUser, deleteUser };

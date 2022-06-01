@@ -1,38 +1,32 @@
-const {
-  getUserByUserName,
-  getUserById,
-  addUserRepo,
-  updateUserRepo,
-  deleteUserRepo,
-} = require("../repositories/user");
+const userRepo = require("../repositories/user");
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 
-const getUserByUsernameService = (data) => {
-  return getUserByUserName(data.username);
+const getUserByUsername = (data) => {
+  return userRepo.getUserByUserName(data.username);
 
 };
 
-const getUserByIdService = (id) => {
-  return getUserById(id);
+const getUserById = (id) => {
+  return userRepo.getUserById(id);
 };
 
-const addUserService = (data) => {
-  return addUserRepo({username: data.username, password: md5(data.password)});
+const addUser = (data) => {
+  return userRepo.addUser({username: data.username, password: md5(data.password)});
 };
 
-const updateUserService = (id, data) => {
-  return updateUserRepo(id, data);
+const updateUser = (id, data) => {
+  return userRepo.updateUser(id, data);
 };
 
-const deleteUserService = (id) => {
-  return deleteUserRepo(id);
+const deleteUser = (id) => {
+  return userRepo.deleteUser(id);
 };
 
 module.exports = {
-  getUserByUsernameService,
-  getUserByIdService,
-  addUserService,
-  updateUserService,
-  deleteUserService,
+  getUserByUsername,
+  getUserById,
+  addUser,
+  updateUser,
+  deleteUser,
 };
