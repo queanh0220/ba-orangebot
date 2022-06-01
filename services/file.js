@@ -1,27 +1,27 @@
-const { getFileAllRepo, addFileRepo, deleteFileRepo, getFileByIdRepo } = require("../repositories/file");
+const fileRepo = require("../repositories/file");
 
   
-  const getFilesService = () => {
-    return getFileAllRepo();
+  const getFiles = () => {
+    return fileRepo.getFileAll();
   };
 
-  const getFileByIdService = (id) => {
-    return getFileByIdRepo(id);
+  const getFileById = (id) => {
+    return fileRepo.getFileById(id);
   };
   
-  const addFileService = (data) => {
-    return addFileRepo(data);
+  const addFile = (data) => {
+    return fileRepo.addFile(data);
   };
   
   
-  const deleteFileService = (listId) => {
-    return deleteFileRepo(listId);
-  };
+  const deleteFile = (listId) => {
+    return fileRepo.deleteFile(listId);
+  }; 
   
   module.exports = {
-    getFilesService,
-    addFileService,
-    deleteFileService,
-    getFileByIdService
+    getFiles,
+    addFile,
+    deleteFile,
+    getFileById
   };
   

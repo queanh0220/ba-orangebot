@@ -1,27 +1,27 @@
 
-const { updateScenarioRepo, getScenarioAllRepo, addScenarioRepo, deleteScenarioRepo } = require("../repositories/scenarios");
+const scenarioRepo = require("../repositories/scenarios");
 
   
-const getScenarioAllService = () => {
-  return getScenarioAllRepo();
+const getScenarioAll = () => {
+  return scenarioRepo.getScenarioAll();
 };
 
-const addScenarioService = (data) => {
-  return addScenarioRepo(data);
+const addScenario = (data) => {
+  return scenarioRepo.addScenario(data);
 };
 
-const updateScenarioService = (id, data) => {
-    return updateScenarioRepo(id, data)
+const updateScenario = (id, data) => {
+    return scenarioRepo.updateScenario(id, data)
 }
 
-const deleteScenarioService = (listId) => {
+const deleteScenario = (listId) => {
   console.log("scen service", listId)
-  return deleteScenarioRepo(listId);
+  return scenarioRepo.deleteScenario(listId);
 };
 
 module.exports = {
-  getScenarioAllService,
-  addScenarioService,
-  updateScenarioService,
-  deleteScenarioService,
+  getScenarioAll,
+  addScenario,
+  updateScenario,
+  deleteScenario,
 };

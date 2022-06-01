@@ -1,22 +1,22 @@
-const { getChatboxByIdUser, addChatboxRepo, updateChatboxByIdUser } = require("../repositories/chatbox");
+const chatboxRepo = require("../repositories/chatbox");
 
   
-  const getChatboxService = (idUser) => {
-    return getChatboxByIdUser(idUser);
+  const getChatbox = (idUser) => {
+    return chatboxRepo.getChatboxByIdUser(idUser);
   };
   
-  const addChatboxService = (data) => {
-    return addChatboxRepo(data);
+  const addChatbox = (data) => {
+    return chatboxRepo.addChatbox(data);
   };
   
   
-  const updateChatboxService = (idUser, data) => {
-    return updateChatboxByIdUser(idUser, data);
+  const updateChatbox = (idUser, data) => {
+    return chatboxRepo.updateChatboxByIdUser(idUser, data);
   };
   
   module.exports = {
-    getChatboxService,
-    addChatboxService,
-    updateChatboxService
+    getChatbox,
+    addChatbox,
+    updateChatbox
   };
   

@@ -1,20 +1,16 @@
 const fs = require("fs");
-const {
-  addFileUploadRepo,
-  getFileUploadRepo,
-  deleteFileUploadRepo,
-} = require("../repositories/upload");
+const uploadRepo = require("../repositories/upload");
 
-const addFileUploadService = (data) => {
-  return addFileUploadRepo(data);
+const addFileUpload = (data) => {
+  return uploadRepo.addFileUpload(data);
 };
 
-const getFileUploadService = (id) => {
-  return getFileUploadRepo(id);
+const getFileUpload = (id) => {
+  return uploadRepo.getFileUpload(id);
 };
 
-const deleteFileUploadService = async (id) => {
-  const meta = await getFileUploadRepo(id);
+const deleteFileUpload = async (id) => {
+  const meta = await uploadRepo.getFileUpload(id);
   console.log(meta);
   if (meta) {
     const path = `${process.cwd()}/uploads/${meta.filename}`;
@@ -23,11 +19,11 @@ const deleteFileUploadService = async (id) => {
     }
   }
 
-  return deleteFileUploadRepo(id);
+  return uploadRepo.deleteFileUpload(id);
 };
 
 module.exports = {
-  addFileUploadService,
-  getFileUploadService,
-  deleteFileUploadService,
+  addFileUpload,
+  getFileUpload,
+  deleteFileUpload,
 };

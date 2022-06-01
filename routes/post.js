@@ -1,16 +1,16 @@
 const express = require("express");
-const { getPosts, addPost, updatePost, deletePost } = require("../controller/post");
+const postController = require("../controller/post");
 const postRouter = express.Router();
 const { verifyToken } = require("../middleware/verifyToken");
 const { wrapControler } = require("../utils/utils");
 
-postRouter.get("/", verifyToken, wrapControler(getPosts));
+postRouter.get("/", verifyToken, wrapControler(postController.getPosts));
 
-postRouter.post("/", verifyToken, wrapControler(addPost));
+postRouter.post("/", verifyToken, wrapControler(postController.addPost));
 
-postRouter.put("/:id", verifyToken, wrapControler(updatePost));
+postRouter.put("/:id", verifyToken, wrapControler(postController.updatePost));
 
-postRouter.delete("/:id", verifyToken, deletePost);
+postRouter.delete("/:id", verifyToken, wrapControler(postController.deletePost));
 
 
 module.exports = postRouter;

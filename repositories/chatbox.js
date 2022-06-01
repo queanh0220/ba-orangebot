@@ -6,7 +6,7 @@ const getChatboxByIdUser = async (idUser) => {
 };
 
 
-const addChatboxRepo = async (data) => {
+const addChatbox = async (data) => {
   return (await getDbInstance()).collection("chatboxs").insertOne(data);
 };
 
@@ -16,5 +16,5 @@ const updateChatboxByIdUser = async (idUser, data) => {
   return await (await getDbInstance()).collection('chatboxs').updateMany({ idUser }, newData);
 };
 module.exports = {
-  getChatboxByIdUser,addChatboxRepo, updateChatboxByIdUser
+  getChatboxByIdUser,addChatbox, updateChatboxByIdUser
 };

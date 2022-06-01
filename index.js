@@ -14,7 +14,7 @@ const handleError = require("./middleware/handleError");
 const main = async () => {
   await getDbInstance();
   const app = express();
-  app.use(handleError)
+  
   app.use(cors())
   app.use(express.json());
   app.use("/users", userRouter);
@@ -23,6 +23,7 @@ const main = async () => {
   app.use("/chatboxs", chatboxRouter);
   app.use("/posts", postRouter);
   app.use("/scenarios", scenarioRouter);
+  app.use(handleError);
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });

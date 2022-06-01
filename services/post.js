@@ -1,27 +1,27 @@
 
-const { updatePostRepo, getPostAllRepo, addPostRepo, deletePostRepo } = require("../repositories/post");
+const postRepo = require("../repositories/post");
 
   
-  const getPostAllService = () => {
-    return getPostAllRepo();
+  const getPostAll = () => {
+    return postRepo.getPostAll();
   };
   
-  const addPostService = (data) => {
-    return addPostRepo(data);
+  const addPost = (data) => {
+    return postRepo.addPost(data);
   };
   
-  const updatePostService = (id, data) => {
-      return updatePostRepo(id, data)
+  const updatePost = (id, data) => {
+      return postRepo.updatePost(id, data)
   }
   
-  const deletePostService = (id) => {
-    return deletePostRepo(id);
+  const deletePost = (id) => {
+    return postRepo.deletePost(id);
   };
   
   module.exports = {
-    getPostAllService,
-    addPostService,
-    updatePostService,
-    deletePostService,
+    getPostAll,
+    addPost,
+    updatePost,
+    deletePost,
   };
   

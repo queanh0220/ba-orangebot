@@ -1,19 +1,19 @@
 const { getDbInstance } = require("../database");
 const ObjectId = require("mongodb").ObjectID;
 
-const addFileUploadRepo = async (data) => {
+const addFileUpload = async (data) => {
   return (await getDbInstance()).collection("uploads").insertOne(data);
 };
 
 
-const getFileUploadRepo = async (id) => {
+const getFileUpload = async (id) => {
   return (await getDbInstance()).collection("uploads").findOne({_id: new ObjectId(id)});
 };
 
-const deleteFileUploadRepo = async (id) => {
+const deleteFileUpload = async (id) => {
   return (await getDbInstance()).collection("uploads").deleteOne({_id: new ObjectId(id)});
 };
 
 module.exports = {
- addFileUploadRepo, getFileUploadRepo, deleteFileUploadRepo
+ addFileUpload, getFileUpload, deleteFileUpload
 };
