@@ -1,4 +1,4 @@
-
+const fs = require("fs");
 const uploadService = require("../services/upload");
 
 const postFileUpload = async (req, res) => {
@@ -7,6 +7,10 @@ const postFileUpload = async (req, res) => {
     res.send("Please upload a file");
     return;
   }
+  const img = fs.readFileSync(file.path);
+  const encode = img.toString('base64');
+  file.imgBuffer = new Buffer(encode, 'base64');
+
   const result = await uploadService.addFileUpload(file);
   const value = result.insertedId;
   res.send(`${process.env.URLSERVER}upload/${value}`);
@@ -14,10 +18,9 @@ const postFileUpload = async (req, res) => {
 
 const getFileUpload = async (req, res) => {
   let meta = await uploadService.getFileUpload(req.params.id);
-  console.log(meta);
-  const dir = `/uploads/${meta.filename}`;
-  console.log("get file",process.cwd() + dir);
-  res.sendFile(process.cwd() + dir);
+ 
+  res.contentType(meta.mimetype);
+  res.send(meta.imgBuffer.buffer);
 };
 
 const deleteFileUpload = async (req, res) => {
